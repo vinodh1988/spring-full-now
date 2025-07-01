@@ -9,7 +9,6 @@ public class DataService {
 		 return new String[] {"John", "Jane", "Doe", "Smith", "Emily", 
 				 "Michael", "Sarah", "David", "Laura", "James",
 				 "Linda", "Robert", "Patricia", "William", "Jennifer"};
-		 
 	
 	 }
 }

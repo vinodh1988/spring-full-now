@@ -17,6 +17,11 @@
 %>
 <li><%out.println(name); %></li>
 <% } %>
-</ul>
+<hr/>
+<h3>States</h3>
+
+Applicaton state: <%=request.getAttribute("avalue") %>
+Session state: <%=request.getAttribute("svalue") %>
+
 </body>
 </html>
