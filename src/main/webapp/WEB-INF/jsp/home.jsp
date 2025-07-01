@@ -8,5 +8,15 @@
 </head>
 <body>
 <h1> Spring boot is running</h1>
+<h3>Names</h3>
+<hr/>
+<ul>
+<%
+ String[] names= (String[])request.getAttribute("names");
+ for(String name:names){
+%>
+<li><%out.println(name); %></li>
+<% } %>
+</ul>
 </body>
 </html>
