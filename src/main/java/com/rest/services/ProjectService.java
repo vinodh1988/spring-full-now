@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.rest.entities.Project;
 import com.rest.repositories.ProjectRepository;
 import com.rest.utilities.RecordAlreadyExistsException;
+import com.rest.utilities.RecordNotFoundException;
 
 @Service
 public class ProjectService {
@@ -28,5 +29,21 @@ public class ProjectService {
 	projectRepository.save(project); 
 	// it works for both insert and update operations
 	  //We dont want to use it for update here
+  }
+  
+  public Project getProjectByPno(int pno) throws RecordNotFoundException {
+	 
+	  Project p=projectRepository.findByPno(pno);
+	  if(p == null)
+		  throw new RecordNotFoundException();
+	  return p;
+	  
+  }
+  
+  public void deleteProject(int pno) throws RecordNotFoundException {
+	  Project p=projectRepository.findByPno(pno);
+	  if(p == null)
+		  throw new RecordNotFoundException();
+	  projectRepository.delete(p);
   }
 }
