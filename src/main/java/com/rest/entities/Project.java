@@ -21,5 +21,5 @@ private String pname;
 @Column
 private String technology;
 @Column
-private String teamsize;
+private Integer teamsize;
 }

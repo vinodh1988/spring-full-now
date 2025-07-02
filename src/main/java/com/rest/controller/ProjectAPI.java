@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rest.entities.Project;
@@ -25,10 +26,20 @@ public class ProjectAPI {
 @Autowired
 	private ProjectService projectService;
 	@GetMapping("")
-	public List<Project> getAllProjects() {
+	public List<Project> getAllProjects(@RequestParam(required = false) Integer min,
+			@RequestParam(required=false) Integer max) {
 		// This method should return a list of projects
 		// For now, returning an empty list as a placeholder
-        return projectService.getAllProjects();
+		if(min == null && max == null) 
+             return projectService.getAllProjects();
+		else if(min != null && max != null) {
+			return projectService.getProjectsBySize(min, max);
+		} else if(min != null) {
+			return projectService.getProjectsBySize(min,Integer.MAX_VALUE);
+		} else  {
+			System.out.println("max is");
+			return projectService.getProjectsBySize(0,max);
+		}
 	}
 	@GetMapping("/{pno}")
 	public Project getProjectById(@PathVariable("pno") int pno) throws RecordNotFoundException  // Custom exception to handle record not found scenario
