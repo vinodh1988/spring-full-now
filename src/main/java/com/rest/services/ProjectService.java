@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rest.entities.Project;
 import com.rest.repositories.ProjectRepository;
+import com.rest.utilities.RecordAlreadyExistsException;
 
 @Service
 public class ProjectService {
@@ -16,5 +17,16 @@ public class ProjectService {
   
   public List<Project> getAllProjects() {
 	return projectRepository.findAll();
+  }
+  
+  public void addProject(Project project) throws RecordAlreadyExistsException {
+	  
+	  Project p=projectRepository.findByPno(project.getPno());
+
+	  if(p != null) 
+		  throw new RecordAlreadyExistsException();
+	projectRepository.save(project); 
+	// it works for both insert and update operations
+	  //We dont want to use it for update here
   }
 }
