@@ -27,19 +27,12 @@ public class ProjectAPI {
         return projectService.getAllProjects();
 	}
 	@PostMapping("")
-	public ResponseEntity<Project> addProject(@RequestBody Project project) 
-
+	public ResponseEntity<Project> addProject(@RequestBody Project project) throws RecordAlreadyExistsException  // Custom exception to handle record already exists scenario
 	{
-		try {
+	
 		
 		projectService.addProject(project);
-		return new ResponseEntity<>(project, HttpStatus.CREATED);
-		}
-		catch (RecordAlreadyExistsException e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-		catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		 return new ResponseEntity<>(project, HttpStatus.CREATED);
+		
 	}
 }
