@@ -46,4 +46,14 @@ public class ProjectService {
 		  throw new RecordNotFoundException();
 	  projectRepository.delete(p);
   }
+  
+  public Project updateProject(Project project) throws RecordNotFoundException {
+	  Project p=projectRepository.findByPno(project.getPno());
+	  if(p == null)
+		  throw new RecordNotFoundException();
+	  project.setPname(project.getPname()==null ? p.getPname() : project.getPname());
+	  project.setTeamsize(project.getTeamsize() == null ? p.getTeamsize() : project.getTeamsize());
+	  project.setTechnology(project.getTechnology() == null ? p.getTechnology() : project.getTechnology());
+	  return projectRepository.save(project);
+  }
 }

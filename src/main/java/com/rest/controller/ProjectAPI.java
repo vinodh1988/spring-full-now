@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rest.entities.Project;
@@ -47,5 +48,13 @@ public class ProjectAPI {
 	public ResponseEntity<String> deleteProject(@PathVariable("pno") int pno) throws RecordNotFoundException {
 		projectService.deleteProject(pno);
 		return new ResponseEntity<>("Record Deleted",HttpStatus.OK); // 204 No Content
+	}
+	@RequestMapping(value="",method= {RequestMethod.PUT, RequestMethod.PATCH})
+	public ResponseEntity<Object> updateProject(@RequestBody Project project) throws RecordNotFoundException {
+		if (project.getPno() == null) {
+			return new ResponseEntity<>("PNO not attached",HttpStatus.BAD_REQUEST); // 400 Bad Request
+		}
+		Project updatedProject = projectService.updateProject(project);
+		return new ResponseEntity<>(updatedProject, HttpStatus.OK); // 200 OK
 	}
 }
