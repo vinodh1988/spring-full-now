@@ -29,5 +29,5 @@ private String dname;
 @OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
 @ToString.Exclude
 @EqualsAndHashCode.Exclude
-Set<String> employees;
+Set<Employee> employees;
 }
