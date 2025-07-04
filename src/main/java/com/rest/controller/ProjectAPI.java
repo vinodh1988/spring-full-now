@@ -32,6 +32,7 @@ public class ProjectAPI {
 @Autowired
 	private ProjectService projectService;
 	@GetMapping("")
+
 	public List<Project> getAllProjects(@RequestParam(required = false) Integer min,
 			@RequestParam(required=false) Integer max) {
 		// This method should return a list of projects
